@@ -1,0 +1,314 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700;900&family=JetBrains+Mono:wght@300;400;700&display=swap');
+
+.soroboan-root {
+  --bg:          #1a1a1a;
+  --panel-bg:    #141414;
+  --border-col:  #333;
+  --orange:      #e8720c;
+  --orange-hi:   #ff9a3c;
+  --orange-dark: #a04e06;
+  --orange-glow: rgba(232,114,12,0.35);
+  --frame-black: #111111;
+  --frame-edge:  #2a2a2a;
+  --ivory-dim:   #7a7060;
+  --green:       #2ecc71;
+  --red:         #e74c3c;
+  --text:        #d0c8b8;
+
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* ── TOPBAR ── */
+.soroboan-root .topbar {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px 14px;
+  border-bottom: 1px solid #262626;
+}
+
+.soroboan-root .logo {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.soroboan-root .logo-kanji {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--orange);
+  text-shadow: 0 0 18px var(--orange-glow);
+}
+
+.soroboan-root .logo-sub {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--ivory-dim);
+  text-transform: uppercase;
+}
+
+.soroboan-root .badge {
+  font-size: 9px;
+  letter-spacing: 2px;
+  border: 1px solid #333;
+  color: #555;
+  padding: 4px 12px;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+
+/* ── MAIN LAYOUT ── */
+.soroboan-root .layout {
+  width: 100%;
+  max-width: 1000px;
+  padding: 28px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+/* ── VALUE DISPLAY ── */
+.soroboan-root .value-strip {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 24px;
+  background: #0e0e0e;
+  border: 1px solid #222;
+  border-radius: 4px;
+}
+
+.soroboan-root .val-label {
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #444;
+  text-transform: uppercase;
+  min-width: 60px;
+}
+
+.soroboan-root .val-number {
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: 5px;
+  text-shadow: 0 0 28px var(--orange-glow);
+  text-align: center;
+  flex: 1;
+  transition: color 0.1s, text-shadow 0.1s;
+  line-height: 1;
+}
+
+.soroboan-root .val-number.flash {
+  color: #fff;
+  text-shadow: 0 0 40px rgba(255,200,100,0.6);
+}
+
+.soroboan-root .val-digits {
+  display: flex;
+  gap: 1px;
+  min-width: 180px;
+  justify-content: flex-end;
+}
+
+.soroboan-root .digit-cell {
+  font-size: 13px;
+  font-weight: 700;
+  width: 14px;
+  text-align: center;
+  color: #333;
+  transition: color 0.15s;
+}
+
+.soroboan-root .digit-cell.on { color: var(--orange); }
+
+/* ── SOROBAN FRAME ── */
+.soroboan-root .soroban-outer {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(180deg, #1e1e1e 0%, #141414 40%, #141414 60%, #1e1e1e 100%);
+  border-radius: 10px;
+  padding: 14px 18px;
+  box-shadow:
+    0 0 0 2px #2a2a2a,
+    0 0 0 4px #111,
+    0 0 0 6px #2a2a2a,
+    0 8px 40px rgba(0,0,0,0.8),
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    inset 0 -1px 0 rgba(0,0,0,0.5);
+}
+
+.soroboan-root .bolt {
+  position: absolute;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #4a4a4a, #1a1a1a);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.9), inset 0 0 0 1px #333;
+}
+
+.soroboan-root .bolt.tl { top: 9px;    left: 12px;  }
+.soroboan-root .bolt.tr { top: 9px;    right: 12px; }
+.soroboan-root .bolt.bl { bottom: 9px; left: 12px;  }
+.soroboan-root .bolt.br { bottom: 9px; right: 12px; }
+
+.soroboan-root .soroban-inner {
+  background: #0d0d0d;
+  border-radius: 5px;
+  padding: 10px 6px;
+  box-shadow:
+    inset 0 2px 6px rgba(0,0,0,0.9),
+    inset 0 0 0 1px rgba(0,0,0,0.6);
+  position: relative;
+}
+
+.soroboan-root .soroban-inner canvas {
+  display: block;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* ── CONTROLS ROW ── */
+.soroboan-root .controls-row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.soroboan-root .sr-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 9px 18px;
+  border-radius: 3px;
+  border: 1px solid #2a2a2a;
+  background: #111;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+  min-width: 100px;
+}
+
+.soroboan-root .sr-btn:hover {
+  border-color: var(--orange-dark);
+  color: var(--orange);
+  background: rgba(232,114,12,0.06);
+  box-shadow: 0 0 12px rgba(232,114,12,0.1);
+}
+
+.soroboan-root .sr-btn.danger:hover {
+  border-color: var(--red);
+  color: var(--red);
+  background: rgba(231,76,60,0.06);
+}
+
+/* ── BOTTOM INFO ROW ── */
+.soroboan-root .info-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+}
+
+.soroboan-root .info-box {
+  background: #0e0e0e;
+  border: 1px solid #1e1e1e;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.soroboan-root .info-title {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #333;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border-bottom: 1px solid #1a1a1a;
+  background: #0a0a0a;
+}
+
+.soroboan-root .history-list {
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.soroboan-root .history-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 14px;
+  font-size: 11px;
+  border-bottom: 1px solid #141414;
+  animation: srFadeIn 0.2s ease;
+}
+
+@keyframes srFadeIn {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.soroboan-root .history-item:last-child { border: none; }
+.soroboan-root .h-val    { color: var(--orange); font-weight: 700; }
+.soroboan-root .h-delta  { font-size: 10px; }
+.soroboan-root .h-action { font-size: 9px; color: #333; }
+.soroboan-root .history-empty { padding: 20px 14px; color: #2a2a2a; font-size: 11px; text-align: center; }
+
+/* ── LEGEND ── */
+.soroboan-root .legend-body {
+  padding: 12px 14px;
+  font-size: 10px;
+  color: #444;
+  line-height: 1.7;
+}
+
+/* ── SCROLLBAR ── */
+.soroboan-root ::-webkit-scrollbar       { width: 3px; }
+.soroboan-root ::-webkit-scrollbar-track { background: transparent; }
+.soroboan-root ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+
+/* ── TOOLTIP ── */
+.sr-tooltip {
+  position: fixed;
+  background: #0e0e0e;
+  border: 1px solid #333;
+  border-radius: 2px;
+  padding: 5px 10px;
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  color: #e8720c;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.1s;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.sr-tooltip.show { opacity: 1; }
+
+/* ── FOOTER ── */
+.soroboan-root .soroban-footer {
+  margin-top: auto;
+  padding: 14px 24px;
+  font-size: 9px;
+  color: #2a2a2a;
+  letter-spacing: 2px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1000px;
+  border-top: 1px solid #1a1a1a;
+}
