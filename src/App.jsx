@@ -8,6 +8,8 @@ import { useGestureEngine } from './hooks/useGestureEngine.js';
 export default function App() {
   const [camEnabled, setCamEnabled] = useState(false);
   const [hands, setHands]           = useState([]);
+  const [theme,  setTheme]          = useState('dark');
+  const [accent, setAccent]         = useState('orange');
 
   const engineRef = useRef(null);
 
@@ -27,7 +29,13 @@ export default function App() {
 
   return (
     <>
-      <Soroboan onEngineReady={handleEngineReady} />
+      <Soroboan
+        onEngineReady={handleEngineReady}
+        theme={theme}
+        accent={accent}
+        onThemeToggle={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
+        onAccentChange={setAccent}
+      />
 
       {/* Feedback de gestos — visible siempre que la cámara esté activa */}
       {camEnabled && <GestureFeedback gesture={gesture} />}

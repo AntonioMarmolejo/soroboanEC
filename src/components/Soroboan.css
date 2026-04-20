@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700;900&family=JetBrains+Mono:wght@300;400;700&display=swap');
 
+/* ── VARIABLES BASE (tema oscuro) ─── */
 .soroboan-root {
   --bg:          #1a1a1a;
   --panel-bg:    #141414;
@@ -14,6 +15,20 @@
   --green:       #2ecc71;
   --red:         #e74c3c;
   --text:        #d0c8b8;
+  --btn-bg:      #111;
+  --btn-border:  #2a2a2a;
+  --btn-color:   #555;
+  --info-bg:     #0e0e0e;
+  --info-border: #1e1e1e;
+  --info-title-bg: #0a0a0a;
+  --info-title-color: #333;
+  --topbar-border: #262626;
+  --val-strip-bg: #0e0e0e;
+  --val-strip-border: #222;
+  --val-label-color: #444;
+  --footer-color: #2a2a2a;
+  --footer-border: #1a1a1a;
+  --scrollbar-thumb: #333;
 
   background: var(--bg);
   color: var(--text);
@@ -23,6 +38,54 @@
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ── TEMA CLARO ── */
+.soroboan-root[data-theme="light"] {
+  --bg:          #f0ece2;
+  --panel-bg:    #e8e4da;
+  --border-col:  #c0bab0;
+  --frame-black: #d4cfc8;
+  --frame-edge:  #b8b4ac;
+  --ivory-dim:   #7a7468;
+  --text:        #3a3228;
+  --btn-bg:      #ede9e0;
+  --btn-border:  #c4beb4;
+  --btn-color:   #7a7468;
+  --info-bg:     #e8e4da;
+  --info-border: #d0ccc4;
+  --info-title-bg: #e0dcd2;
+  --info-title-color: #9a948a;
+  --topbar-border: #d4d0c8;
+  --val-strip-bg: #e4e0d8;
+  --val-strip-border: #ccc8c0;
+  --val-label-color: #9a9488;
+  --footer-color: #a09a90;
+  --footer-border: #d4d0c8;
+  --scrollbar-thumb: #b4b0a8;
+}
+
+/* ── COLORES DE ACENTO ── */
+.soroboan-root[data-accent="blue"] {
+  --orange:      #2878e8;
+  --orange-hi:   #5aa0ff;
+  --orange-dark: #1850a0;
+  --orange-glow: rgba(40,120,232,0.35);
+}
+
+.soroboan-root[data-accent="green"] {
+  --orange:      #18b85c;
+  --orange-hi:   #2edb78;
+  --orange-dark: #0e8040;
+  --orange-glow: rgba(24,184,92,0.35);
+}
+
+.soroboan-root[data-accent="purple"] {
+  --orange:      #9040e8;
+  --orange-hi:   #b870ff;
+  --orange-dark: #6020a0;
+  --orange-glow: rgba(144,64,232,0.35);
 }
 
 /* ── TOPBAR ── */
@@ -33,7 +96,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 18px 24px 14px;
-  border-bottom: 1px solid #262626;
+  border-bottom: 1px solid var(--topbar-border);
+  gap: 12px;
 }
 
 .soroboan-root .logo {
@@ -60,12 +124,70 @@
 .soroboan-root .badge {
   font-size: 9px;
   letter-spacing: 2px;
-  border: 1px solid #333;
-  color: #555;
+  border: 1px solid var(--border-col);
+  color: var(--btn-color);
   padding: 4px 12px;
   border-radius: 2px;
   text-transform: uppercase;
+  white-space: nowrap;
 }
+
+/* ── CONTROLES DE TEMA ── */
+.soroboan-root .theme-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.soroboan-root .theme-toggle {
+  font-size: 14px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--btn-border);
+  background: var(--btn-bg);
+  color: var(--orange);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  padding: 0;
+  line-height: 1;
+}
+
+.soroboan-root .theme-toggle:hover {
+  border-color: var(--orange-dark);
+  box-shadow: 0 0 10px var(--orange-glow);
+}
+
+.soroboan-root .accent-dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.soroboan-root .accent-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s, border-color 0.15s;
+}
+
+.soroboan-root .accent-dot:hover { transform: scale(1.25); }
+
+.soroboan-root .accent-dot.active {
+  border-color: var(--text);
+  transform: scale(1.2);
+}
+
+.soroboan-root .accent-dot--orange { background: #e8720c; }
+.soroboan-root .accent-dot--blue   { background: #2878e8; }
+.soroboan-root .accent-dot--green  { background: #18b85c; }
+.soroboan-root .accent-dot--purple { background: #9040e8; }
 
 /* ── MAIN LAYOUT ── */
 .soroboan-root .layout {
@@ -86,15 +208,16 @@
   justify-content: space-between;
   gap: 16px;
   padding: 14px 24px;
-  background: #0e0e0e;
-  border: 1px solid #222;
+  background: var(--val-strip-bg);
+  border: 1px solid var(--val-strip-border);
   border-radius: 4px;
+  transition: background 0.3s, border-color 0.3s;
 }
 
 .soroboan-root .val-label {
   font-size: 9px;
   letter-spacing: 3px;
-  color: #444;
+  color: var(--val-label-color);
   text-transform: uppercase;
   min-width: 60px;
 }
@@ -138,16 +261,17 @@
 .soroboan-root .soroban-outer {
   position: relative;
   width: 100%;
-  background: linear-gradient(180deg, #1e1e1e 0%, #141414 40%, #141414 60%, #1e1e1e 100%);
+  background: linear-gradient(180deg, var(--panel-bg) 0%, var(--frame-black) 40%, var(--frame-black) 60%, var(--panel-bg) 100%);
   border-radius: 10px;
   padding: 14px 18px;
   box-shadow:
-    0 0 0 2px #2a2a2a,
-    0 0 0 4px #111,
-    0 0 0 6px #2a2a2a,
-    0 8px 40px rgba(0,0,0,0.8),
+    0 0 0 2px var(--frame-edge),
+    0 0 0 4px var(--frame-black),
+    0 0 0 6px var(--frame-edge),
+    0 8px 40px rgba(0,0,0,0.5),
     inset 0 1px 0 rgba(255,255,255,0.06),
-    inset 0 -1px 0 rgba(0,0,0,0.5);
+    inset 0 -1px 0 rgba(0,0,0,0.3);
+  transition: background 0.3s, box-shadow 0.3s;
 }
 
 .soroboan-root .bolt {
@@ -171,6 +295,14 @@
     inset 0 2px 6px rgba(0,0,0,0.9),
     inset 0 0 0 1px rgba(0,0,0,0.6);
   position: relative;
+  transition: background 0.3s;
+}
+
+.soroboan-root[data-theme="light"] .soroban-inner {
+  background: #c0bcb4;
+  box-shadow:
+    inset 0 2px 6px rgba(0,0,0,0.2),
+    inset 0 0 0 1px rgba(0,0,0,0.1);
 }
 
 .soroboan-root .soroban-inner canvas {
@@ -194,9 +326,9 @@
   text-transform: uppercase;
   padding: 9px 18px;
   border-radius: 3px;
-  border: 1px solid #2a2a2a;
-  background: #111;
-  color: #555;
+  border: 1px solid var(--btn-border);
+  background: var(--btn-bg);
+  color: var(--btn-color);
   cursor: pointer;
   transition: all 0.2s;
   flex: 1;
@@ -225,20 +357,22 @@
 }
 
 .soroboan-root .info-box {
-  background: #0e0e0e;
-  border: 1px solid #1e1e1e;
+  background: var(--info-bg);
+  border: 1px solid var(--info-border);
   border-radius: 4px;
   overflow: hidden;
+  transition: background 0.3s, border-color 0.3s;
 }
 
 .soroboan-root .info-title {
   font-size: 9px;
   letter-spacing: 2px;
-  color: #333;
+  color: var(--info-title-color);
   text-transform: uppercase;
   padding: 8px 14px;
-  border-bottom: 1px solid #1a1a1a;
-  background: #0a0a0a;
+  border-bottom: 1px solid var(--info-border);
+  background: var(--info-title-bg);
+  transition: background 0.3s, color 0.3s;
 }
 
 .soroboan-root .history-list {
@@ -251,7 +385,7 @@
   justify-content: space-between;
   padding: 7px 14px;
   font-size: 11px;
-  border-bottom: 1px solid #141414;
+  border-bottom: 1px solid var(--info-border);
   animation: srFadeIn 0.2s ease;
 }
 
@@ -263,21 +397,21 @@
 .soroboan-root .history-item:last-child { border: none; }
 .soroboan-root .h-val    { color: var(--orange); font-weight: 700; }
 .soroboan-root .h-delta  { font-size: 10px; }
-.soroboan-root .h-action { font-size: 9px; color: #333; }
-.soroboan-root .history-empty { padding: 20px 14px; color: #2a2a2a; font-size: 11px; text-align: center; }
+.soroboan-root .h-action { font-size: 9px; color: var(--info-title-color); }
+.soroboan-root .history-empty { padding: 20px 14px; color: var(--btn-border); font-size: 11px; text-align: center; }
 
 /* ── LEGEND ── */
 .soroboan-root .legend-body {
   padding: 12px 14px;
   font-size: 10px;
-  color: #444;
+  color: var(--info-title-color);
   line-height: 1.7;
 }
 
 /* ── SCROLLBAR ── */
 .soroboan-root ::-webkit-scrollbar       { width: 3px; }
 .soroboan-root ::-webkit-scrollbar-track { background: transparent; }
-.soroboan-root ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+.soroboan-root ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 2px; }
 
 /* ── TOOLTIP ── */
 .sr-tooltip {
@@ -288,7 +422,7 @@
   padding: 5px 10px;
   font-size: 10px;
   font-family: 'JetBrains Mono', monospace;
-  color: #e8720c;
+  color: var(--orange);
   pointer-events: none;
   z-index: 999;
   opacity: 0;
@@ -304,11 +438,12 @@
   margin-top: auto;
   padding: 14px 24px;
   font-size: 9px;
-  color: #2a2a2a;
+  color: var(--footer-color);
   letter-spacing: 2px;
   display: flex;
   justify-content: space-between;
   width: 100%;
   max-width: 1000px;
-  border-top: 1px solid #1a1a1a;
+  border-top: 1px solid var(--footer-border);
+  transition: color 0.3s, border-color 0.3s;
 }
